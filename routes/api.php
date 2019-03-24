@@ -16,9 +16,16 @@ use Illuminate\Http\Request;
 Route::group([
   'prefix' => 'users'
 ], function() {
-  Route::post('/regist', 'TasksController@create');
-  Route::post('/login', 'TasksController@edit');
-  Route::get('/logout', 'TasksController@delete');
+  Route::post('/regist', 'UsersController@regist');
+  Route::post('/login', 'UsersController@login');
+  Route::get('/accept-registration/{token}', 'UsersController@acceptRegistration');
+
+  Route::group([
+        'middleware' => 'auth:api'
+    ], function () {
+        Route::get('/get-user', 'UsersController@getUser');
+        Route::get('/logout', 'UsersController@logout');
+    });
 });
 
 Route::group([
