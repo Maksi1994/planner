@@ -20,12 +20,16 @@ Route::group([
   Route::post('/login', 'UsersController@login');
   Route::get('/accept-registration/{token}', 'UsersController@acceptRegistration');
 
-  Route::group([
+    Route::group([
         'middleware' => 'auth:api'
     ], function () {
         Route::get('/get-user', 'UsersController@getUser');
         Route::get('/logout', 'UsersController@logout');
     });
+
+    Route::post('/create-reser-password', 'UsersController@createResetPassword');
+    Route::get('/accept-reset-password/{token}', 'UsersController@acceptResetPassword');
+    Route::post('/reset-password', 'UsersController@resetPassword');
 });
 
 Route::group([
